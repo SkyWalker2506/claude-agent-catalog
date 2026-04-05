@@ -7,18 +7,20 @@ Part of the [claude-config](https://github.com/SkyWalker2506/claude-config) Mult
 ## Quick Start
 
 ```bash
-# Full system (all 134 agents + skills + MCP + hooks)
+# Full system (all 134 agents + skills + MCP + hooks + auto-dispatch)
 git clone https://github.com/SkyWalker2506/claude-config.git ~/Projects/claude-config
 cd ~/Projects/claude-config && ./install.sh
 
-# Only agents (add to existing claude-config)
+# Only agents (add agent .md files to ~/.claude/agents/)
 git clone https://github.com/SkyWalker2506/claude-agent-catalog.git
 cd claude-agent-catalog && ./install.sh
 ```
 
 ## Auto-Dispatch
 
-Once installed, agents activate automatically based on your task:
+> **Requires the full [claude-config](https://github.com/SkyWalker2506/claude-config) install.** The standalone `install.sh` above only copies agent definition files — auto-dispatch, `/dispatch`, and `/agent-refine` are skills provided by `claude-config`.
+
+Once the full system is installed, agents activate automatically based on your task:
 
 ```
 /dispatch write a REST API         → B2 Backend Coder (Sonnet)
@@ -195,10 +197,13 @@ Or in any Claude Code session — plans automatically route to the right agent.
 Pool agents are defined but not auto-dispatched. To activate for your project:
 
 ```bash
+# Requires claude-config to be installed
 /agent-refine    # Analyzes your project, suggests which agents to activate
 ```
 
 Or manually edit `~/Projects/claude-config/config/agent-registry.json` — change `"status": "pool"` to `"status": "active"`.
+
+> **Note:** `/agent-refine` is a skill provided by [claude-config](https://github.com/SkyWalker2506/claude-config), not this repo.
 
 ## Model Tiers
 
@@ -209,6 +214,13 @@ Or manually edit `~/Projects/claude-config/config/agent-registry.json` — chang
 | `haiku` | Labels, simple edits, routing |
 | `local-qwen-9b` | Offline, scripts, low-cost |
 | `free-*` | Zero-cost tools (web search, scripts, cron) |
+
+## Roadmap
+
+- `config/agent-registry.json` — machine-readable registry for auto-dispatch (lives in claude-config today; see CC-24)
+- `config/agent-router.sh` — CLI routing script (lives in claude-config)
+- Standalone `/dispatch` skill bundled with this repo (see CC-22)
+- Standalone `/agent-refine` skill bundled with this repo (see CC-23)
 
 ## Related
 
