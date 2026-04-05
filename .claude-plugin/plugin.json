@@ -1,0 +1,17 @@
+{
+  "name": "claude-agent-catalog",
+  "version": "1.0.0",
+  "description": "Agent catalog with dispatch and agent-refine skills",
+  "skills": [
+    {
+      "name": "dispatch",
+      "path": "skills/dispatch/SKILL.md",
+      "description": "Analyze task, select agent from registry, launch sub-agent"
+    },
+    {
+      "name": "agent-refine",
+      "path": "skills/agent-refine/SKILL.md",
+      "description": "Refine agent system — detect missing, split wide, create new agents"
+    }
+  ]
+}
