@@ -1,6 +1,6 @@
 # Claude Agent Catalog
 
-**134 AI agents** across **15 categories** for [Claude Code](https://claude.ai/claude-code).
+**139 AI agents** across **15 categories** for [Claude Code](https://claude.ai/claude-code).
 
 Part of the [claude-config](https://github.com/SkyWalker2506/claude-config) Multi-Agent OS — cost-aware orchestration, local-first routing, auto-dispatch.
 
