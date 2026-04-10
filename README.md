@@ -4,6 +4,20 @@
 
 Part of the [claude-config](https://github.com/SkyWalker2506/claude-config) Multi-Agent OS — cost-aware orchestration, local-first routing, auto-dispatch.
 
+## Ecosystem on GitHub (start here)
+
+This repository is **step 1** when exploring the stack on GitHub: **agents → plugins → full OS → workspace HQ**.
+
+| Step | Repository | Role |
+|------|------------|------|
+| **1** | **claude-agent-catalog** (this repo) | Full agent inventory, categories, `/dispatch` examples |
+| **2** | [claude-marketplace](https://github.com/SkyWalker2506/claude-marketplace) | Plugin catalog, one-line installs, native marketplace |
+| **3** | [claude-config](https://github.com/SkyWalker2506/claude-config) | Multi-Agent OS — `install.sh`, MCP, skills, hooks, registry |
+| **4** | [ClaudeHQ](https://github.com/SkyWalker2506/ClaudeHQ) | Ecosystem workspace — multi-project `claude` session |
+| — | [sdk-market](https://github.com/SkyWalker2506/sdk-market) | Optional — production SDKs and kits |
+
+Copy and cross-links are kept aligned across these repos. Registry line-items may receive small weekly refreshes on `main`; runtime behavior always follows the latest [claude-config](https://github.com/SkyWalker2506/claude-config) install.
+
 ## Quick Start
 
 ```bash
@@ -224,5 +238,7 @@ Or manually edit `~/Projects/claude-config/config/agent-registry.json` — chang
 
 ## Related
 
+- [claude-marketplace](https://github.com/SkyWalker2506/claude-marketplace) — Plugin catalog (step 2 on GitHub)
 - [claude-config](https://github.com/SkyWalker2506/claude-config) — Full Multi-Agent OS (agents + skills + MCP + hooks)
+- [ClaudeHQ](https://github.com/SkyWalker2506/ClaudeHQ) — Ecosystem workspace hub
 - [ccplugin-sync-agents](https://github.com/SkyWalker2506/ccplugin-sync-agents) — Keep agent frontmatter in sync with registry
