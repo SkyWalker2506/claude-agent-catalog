@@ -1,12 +1,34 @@
+<div align="center">
+
 # Claude Agent Catalog
 
-**139 AI agents** across **15 categories** for [Claude Code](https://claude.ai/claude-code).
+### Full **AI agent inventory** for [**Claude Code**](https://claude.ai/claude-code)
 
-Part of the [claude-config](https://github.com/SkyWalker2506/claude-config) Multi-Agent OS — cost-aware orchestration, local-first routing, auto-dispatch.
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Multi--Agent_OS-191919?logo=anthropic&logoColor=white)](https://github.com/SkyWalker2506/claude-config)
+[![Registry](https://img.shields.io/badge/registry-196_agents-6366f1)](https://github.com/SkyWalker2506/claude-config/blob/main/config/agent-registry.json)
+[![Categories](https://img.shields.io/badge/categories-15-8b5cf6)](https://github.com/SkyWalker2506/claude-agent-catalog#categories)
+[![License](https://img.shields.io/badge/license-MIT-22c55e)](https://github.com/SkyWalker2506/claude-config/blob/main/LICENSE)
+
+**Cost-aware routing · Knowledge-first `AGENT.md` + `knowledge/` · Auto-dispatch with [claude-config](https://github.com/SkyWalker2506/claude-config)**
+
+[Jump to agent table](#all-agents) · [Quick install](#quick-start) · [Ecosystem](#ecosystem-on-github-start-here)
+
+</div>
+
+---
+
+Part of the [**claude-config**](https://github.com/SkyWalker2506/claude-config) **Multi-Agent OS** — orchestration, local-first model routing, hooks, and registry-backed dispatch.
 
 ## Ecosystem on GitHub (start here)
 
-This repository is **step 1** when exploring the stack on GitHub: **agents → plugins → full OS → workspace HQ**.
+This repo is **step 1** on GitHub: **agents → plugins → full OS → workspace HQ**.
+
+```mermaid
+flowchart LR
+  A[1 Agent Catalog] --> B[2 Marketplace]
+  B --> C[3 claude-config]
+  C --> D[4 ClaudeHQ]
+```
 
 | Step | Repository | Role |
 |------|------------|------|
@@ -14,14 +36,14 @@ This repository is **step 1** when exploring the stack on GitHub: **agents → p
 | **2** | [claude-marketplace](https://github.com/SkyWalker2506/claude-marketplace) | Plugin catalog, one-line installs, native marketplace |
 | **3** | [claude-config](https://github.com/SkyWalker2506/claude-config) | Multi-Agent OS — `install.sh`, MCP, skills, hooks, registry |
 | **4** | [ClaudeHQ](https://github.com/SkyWalker2506/ClaudeHQ) | Ecosystem workspace — multi-project `claude` session |
-| — | [sdk-market](https://github.com/SkyWalker2506/sdk-market) | Optional — production SDKs and kits |
+| — | [sdk-market](https://github.com/SkyWalker2506/sdk-market) | Optional — SDKs and kits |
 
-Copy and cross-links are kept aligned across these repos. Registry line-items may receive small weekly refreshes on `main`; runtime behavior always follows the latest [claude-config](https://github.com/SkyWalker2506/claude-config) install.
+READMEs stay cross-linked; the live source of truth for counts is **`main`** on [claude-config](https://github.com/SkyWalker2506/claude-config).
 
 ## Quick Start
 
 ```bash
-# Full system (all 134 agents + skills + MCP + hooks + auto-dispatch)
+# Full system (agents + skills + MCP + hooks + auto-dispatch — see claude-config)
 git clone https://github.com/SkyWalker2506/claude-config.git ~/Projects/claude-config
 cd ~/Projects/claude-config && ./install.sh
 
