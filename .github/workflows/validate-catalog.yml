@@ -1,0 +1,63 @@
+name: Validate Agent Catalog
+
+on:
+  pull_request:
+    paths: ['README.md']
+  push:
+    branches: [main]
+    paths: ['README.md']
+
+permissions:
+  contents: read
+
+jobs:
+  check-catalog-completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Count agents in README
+        id: readme_count
+        run: |
+          README_COUNT=$(python3 -c "
+          import re, sys
+          count = 0
+          with open('README.md') as f:
+              for line in f:
+                  if re.match(r'^\|.*\|\s*[A-Z]\d+\s*\|', line):
+                      count += 1
+          print(count)
+          ")
+          echo "README agent count: $README_COUNT"
+          echo "readme_count=$README_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Fetch registry count
+        id: registry_count
+        run: |
+          REGISTRY_URL="https://raw.githubusercontent.com/SkyWalker2506/claude-config/main/config/agent-registry.json"
+          REGISTRY_COUNT=$(curl -sf "$REGISTRY_URL" | python3 -c "
+          import json, sys
+          d = json.load(sys.stdin)
+          agents = d.get('agents', d) if isinstance(d, dict) else d
+          print(len(agents))
+          " 2>/dev/null || echo "unknown")
+          echo "Registry agent count: $REGISTRY_COUNT"
+          echo "registry_count=$REGISTRY_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Compare counts
+        run: |
+          README=${{ steps.readme_count.outputs.readme_count }}
+          REGISTRY=${{ steps.registry_count.outputs.registry_count }}
+          echo "README: $README | Registry: $REGISTRY"
+          if [ "$REGISTRY" = "unknown" ]; then
+            echo "::warning::Could not fetch agent-registry.json from claude-config — skipping count comparison."
+            exit 0
+          fi
+          if [ "$README" -lt "$REGISTRY" ]; then
+            echo "::error::Catalog README lists $README agents but registry has $REGISTRY. Run 'hq sync' and update README.md before merging."
+            exit 1
+          fi
+          if [ "$README" -gt "$REGISTRY" ]; then
+            echo "::warning::Catalog README lists $README agents but registry only has $REGISTRY. README may be ahead of registry — verify intentional."
+          fi
+          echo "Counts match: $README agents in both README and registry."
