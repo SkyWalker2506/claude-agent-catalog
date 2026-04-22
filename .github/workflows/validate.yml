@@ -1,0 +1,37 @@
+name: Validate Agent Registry
+
+on:
+  push:
+    paths:
+      - 'agent-registry.json'
+      - 'scripts/validate_registry.py'
+      - '**/*.md'
+  pull_request:
+    paths:
+      - 'agent-registry.json'
+      - 'scripts/validate_registry.py'
+
+jobs:
+  validate-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate agent-registry.json
+        run: python3 scripts/validate_registry.py --verbose
+
+      - name: Check agent count matches README badge
+        run: |
+          COUNT=$(python3 -c "import json; d=json.load(open('agent-registry.json')); print(len(d.get('agents', {})))")
+          echo "Registry has $COUNT agents"
+          # Warn if README badge count doesn't match (non-blocking)
+          BADGE_COUNT=$(grep -o 'registry-[0-9]*_agents' README.md | grep -o '[0-9]*' || echo "unknown")
+          echo "README badge shows: $BADGE_COUNT agents"
+          if [ "$BADGE_COUNT" != "$COUNT" ] && [ "$BADGE_COUNT" != "unknown" ]; then
+            echo "::warning::README badge ($BADGE_COUNT) does not match registry count ($COUNT). Run 'hq sync' to update."
+          fi
